@@ -1,0 +1,90 @@
+/* 1. TAILWIND IMPORTS */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 2. FONT IMPORT */
+@import url('https://api.fontshare.com/v2/css?f[]=mona-sans@200..900&f[]=instrument-serif@400,700&display=swap');
+
+/* 3. DESIGN TOKENS (CSS VARIABLES) */
+:root {
+  /* Fonts */
+  --font-sans: 'Mona Sans', sans-serif;
+  --font-serif: 'Instrument Serif', serif;
+
+  /* Colors */
+  --color-bg: #0f0f0f;
+  --color-primary: #ff5000;
+  --color-primary-dark: #a00000;
+  --color-primary-light: rgba(255, 80, 0, 0.15);
+  --color-text-primary: #fafafa;
+  --color-text-secondary: rgba(250, 250, 250, 0.7);
+  --color-text-tertiary: rgba(250, 250, 250, 0.5);
+
+  /* Glassmorphism */
+  --glass-bg: rgba(22, 22, 22, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.07);
+  --glass-shadow: rgba(0, 0, 0, 0.4);
+
+  /* Typography */
+  --type-h1: clamp(2.5rem, 6vw, 4.5rem);
+  --type-h2: clamp(2rem, 5vw, 3rem);
+  --type-h3: clamp(1.5rem, 4vw, 2rem);
+  --type-body: clamp(1rem, 2.5vw, 1.125rem);
+  --type-small: clamp(0.875rem, 2vw, 1rem);
+
+  /* Spacing */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2.5rem;
+  --space-5: 4rem;
+  --space-6: 6rem;
+
+  /* Radius */
+  --radius-1: 0.5rem;
+  --radius-2: 1rem;
+  --radius-3: 1.5rem;
+}
+
+/* 4. BASE & CUSTOM STYLES */
+body {
+  font-family: var(--font-sans);
+  scroll-behavior: smooth;
+  background-color: var(--color-bg); /* This sets the dark background */
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+p {
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+}
+
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 8px 32px var(--glass-shadow);
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-family: var(--font-serif);
+}
+
+/* Hide scrollbars */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
