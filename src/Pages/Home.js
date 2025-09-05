@@ -67,6 +67,7 @@ export default function Home() {
     return () => clearTimeout(timeout);
   }, [text, isDeleting, roleIndex]);
 
+  // Kick-start typing when component mounts or role changes
   useEffect(() => {
     if (text === "" && !isDeleting) {
       const kick = setTimeout(() => setText(roles[roleIndex].slice(0, 1)), 10);
@@ -75,7 +76,13 @@ export default function Home() {
   }, [text, isDeleting, roleIndex]);
 
   const handleDoubleClick = () => {
+    // Rickroll Easter egg
     window.open("https://www.youtube.com/watch?v=dQw4w9WgXcQ", "_blank");
+  };
+
+  const scrollToWhatID = () => {
+    const el = document.getElementById("what-i-do");
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   return (
@@ -84,9 +91,9 @@ export default function Home() {
         
         {/* Hero Section */}
         <motion.section variants={itemVariants} className="mb-24 lg:mb-32">
-          <div className="mx-auto grid grid-cols-1 lg:grid-cols-[1fr_auto] items-center gap-10 lg:gap-14 max-w-6xl">
+          <div className="mx-auto grid grid-cols-1 lg:grid-cols-[1fr_auto] items-start gap-10 lg:gap-14 max-w-6xl">
             
-            {/* Text side */}
+            {/* Left column (text, mobile pfp inside here in desired order) */}
             <div className="max-w-3xl flex flex-col">
               {/* Name */}
               <h1
@@ -107,7 +114,7 @@ export default function Home() {
 
               {/* Typing role */}
               <div
-                className="mb-6 flex items-center text-[var(--color-text-secondary)]"
+                className="mb-4 flex items-center text-[var(--color-text-secondary)]"
                 style={{ fontSize: "clamp(1.1rem, 3.5vw, 1.5rem)", minHeight: "2rem" }}
                 aria-live="polite"
               >
@@ -119,8 +126,37 @@ export default function Home() {
                 />
               </div>
 
-              {/* CTA */}
-              <motion.div variants={itemVariants} className="flex items-stretch gap-4 mb-6">
+              {/* MOBILE profile image — placed here so the order is correct on small screens.
+                  Matches the About section style (aspect square + rounded glass). */}
+              <motion.div
+                variants={itemVariants}
+                className="lg:hidden mb-6 relative"
+                onMouseEnter={() => setHovered(true)}
+                onMouseLeave={() => setHovered(false)}
+                onDoubleClick={handleDoubleClick}
+              >
+                <div className="aspect-square glass rounded-[var(--radius-2)] overflow-hidden mx-auto">
+                  <img
+                    src="/pfp 101.jpg"
+                    alt="Shifin Ahammed"
+                    className="w-full h-full object-cover"
+                    loading="eager"
+                  />
+                </div>
+                {hovered && (
+                  <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 bg-black text-white text-sm px-3 py-1 rounded-lg shadow-lg animate-pulse whitespace-nowrap">
+                    I dare you to double click me 👀
+                  </div>
+                )}
+              </motion.div>
+
+              {/* About / description */}
+              <motion.p variants={itemVariants} className="mb-6 max-w-2xl" style={{ fontSize: 'var(--type-body)' }}>
+                By title, I'm a product designer, but I see the bigger picture. It’s not enough to design something beautiful; you have to connect it to an audience. I blend visual identity with digital marketing strategy to build brands that don't just look good—they perform.
+              </motion.p>
+
+              {/* CTA (after description on mobile; same place on desktop left column) */}
+              <motion.div variants={itemVariants} className="flex items-stretch gap-4 mb-4">
                 <Link to={createPageUrl("Projects")} className="group inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-primary-dark)] text-white px-4 py-3 rounded-[var(--radius-1)] font-semibold transition-transform duration-200 hover:scale-105 text-xs sm:text-sm whitespace-nowrap flex-1 sm:flex-none">
                   <span>View My Work</span>
                   <ArrowRight className="w-4 h-4" />
@@ -131,47 +167,25 @@ export default function Home() {
                 </a>
               </motion.div>
 
-              {/* 🔽 Scroll down indicator (mobile only) */}
-              <div className="flex justify-center mt-4 lg:hidden">
-                <motion.div
-                  initial={{ y: 0 }}
-                  animate={{ y: [0, 6, 0] }}
-                  transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
-                  className="text-[var(--color-text-tertiary)]"
+              {/* Mobile-only scroll arrow (visible below CTA) */}
+              <div className="flex justify-center lg:hidden">
+                <button
+                  onClick={scrollToWhatID}
+                  className="text-[var(--color-text-tertiary)] p-2 rounded-full hover:bg-white/5 transition"
+                  aria-label="Scroll to What I Do"
                 >
-                  <ArrowRight className="w-6 h-6 rotate-90" />
-                </motion.div>
+                  <motion.div
+                    initial={{ y: 0 }}
+                    animate={{ y: [0, 6, 0] }}
+                    transition={{ repeat: Infinity, duration: 1.4, ease: "easeInOut" }}
+                  >
+                    <ArrowRight className="w-6 h-6 rotate-90" />
+                  </motion.div>
+                </button>
               </div>
-
-              {/* Mobile Profile image */}
-              <motion.div
-                variants={itemVariants}
-                className="justify-self-center lg:hidden mt-8 mb-6 relative"
-                onMouseEnter={() => setHovered(true)}
-                onMouseLeave={() => setHovered(false)}
-                onDoubleClick={handleDoubleClick}
-              >
-                <div className="relative w-40 h-40 sm:w-48 sm:h-48 rounded-[22px] overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.35)] ring-1 ring-white/10 bg-white/5 mx-auto cursor-pointer">
-                  <img
-                    src="/pfp 101.jpg"
-                    alt="Portrait of Shifin Ahammed"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                {hovered && (
-                  <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 bg-black text-white text-sm px-3 py-1 rounded-lg shadow-lg animate-pulse whitespace-nowrap">
-                    I dare you to double click me 👀
-                  </div>
-                )}
-              </motion.div>
-
-              {/* About text */}
-              <motion.p variants={itemVariants} className="mb-8 max-w-2xl" style={{ fontSize: 'var(--type-body)' }}>
-                By title, I'm a product designer, but I see the bigger picture. It’s not enough to design something beautiful; you have to connect it to an audience. I blend visual identity with digital marketing strategy to build brands that don't just look good—they perform.
-              </motion.p>
             </div>
 
-            {/* Desktop Profile image */}
+            {/* Desktop profile image (unchanged visual & placement) */}
             <motion.div
               variants={itemVariants}
               className="justify-self-center lg:justify-self-end hidden lg:block relative"
@@ -195,8 +209,8 @@ export default function Home() {
           </div>
         </motion.section>
 
-        {/* What I Do Section */}
-        <motion.section variants={itemVariants} className="mb-24 lg:mb-32">
+        {/* What I Do Section — target id for the scroll arrow */}
+        <motion.section id="what-i-do" variants={itemVariants} className="mb-24 lg:mb-32">
           <div className="mb-12">
             <motion.h2 variants={itemVariants} className="font-bold mb-4 tracking-tighter" style={{ fontSize: 'var(--type-h2)' }}>What I Do</motion.h2>
             <motion.p variants={itemVariants} className="max-w-2xl" style={{ fontSize: 'var(--type-body)' }}>
