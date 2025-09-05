@@ -119,15 +119,39 @@ export default function Home() {
                 />
               </div>
 
+              {/* CTA */}
+              <motion.div variants={itemVariants} className="flex items-stretch gap-4 mb-6">
+                <Link to={createPageUrl("Projects")} className="group inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-primary-dark)] text-white px-4 py-3 rounded-[var(--radius-1)] font-semibold transition-transform duration-200 hover:scale-105 text-xs sm:text-sm whitespace-nowrap flex-1 sm:flex-none">
+                  <span>View My Work</span>
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+                <a href="/CV-Shifin_Ahammed.pdf" download="CV-Shifin_Ahammed.pdf" className="group inline-flex items-center justify-center gap-2 glass glass-hover text-[var(--color-text-primary)] px-4 py-3 rounded-[var(--radius-1)] font-semibold transition-transform duration-200 hover:scale-105 text-xs sm:text-sm whitespace-nowrap flex-1 sm:flex-none">
+                  <span>Download CV</span>
+                  <DownloadCloud className="w-4 h-4 text-[var(--color-text-tertiary)] group-hover:text-[var(--color-primary)] transition-colors" />
+                </a>
+              </motion.div>
+
+              {/* 🔽 Scroll down indicator (mobile only) */}
+              <div className="flex justify-center mt-4 lg:hidden">
+                <motion.div
+                  initial={{ y: 0 }}
+                  animate={{ y: [0, 6, 0] }}
+                  transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
+                  className="text-[var(--color-text-tertiary)]"
+                >
+                  <ArrowRight className="w-6 h-6 rotate-90" />
+                </motion.div>
+              </div>
+
               {/* Mobile Profile image */}
               <motion.div
                 variants={itemVariants}
-                className="justify-self-center lg:hidden mb-6 relative"
+                className="justify-self-center lg:hidden mt-8 mb-6 relative"
                 onMouseEnter={() => setHovered(true)}
                 onMouseLeave={() => setHovered(false)}
                 onDoubleClick={handleDoubleClick}
               >
-                <div className="relative w-full h-[80vh] sm:h-[90vh] rounded-[22px] overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.35)] ring-1 ring-white/10 bg-white/5 mx-auto cursor-pointer">
+                <div className="relative w-40 h-40 sm:w-48 sm:h-48 rounded-[22px] overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.35)] ring-1 ring-white/10 bg-white/5 mx-auto cursor-pointer">
                   <img
                     src="/pfp 101.jpg"
                     alt="Portrait of Shifin Ahammed"
@@ -145,18 +169,6 @@ export default function Home() {
               <motion.p variants={itemVariants} className="mb-8 max-w-2xl" style={{ fontSize: 'var(--type-body)' }}>
                 By title, I'm a product designer, but I see the bigger picture. It’s not enough to design something beautiful; you have to connect it to an audience. I blend visual identity with digital marketing strategy to build brands that don't just look good—they perform.
               </motion.p>
-
-              {/* CTA */}
-              <motion.div variants={itemVariants} className="flex items-stretch gap-4">
-                <Link to={createPageUrl("Projects")} className="group inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-primary-dark)] text-white px-4 py-3 rounded-[var(--radius-1)] font-semibold transition-transform duration-200 hover:scale-105 text-xs sm:text-sm whitespace-nowrap flex-1 sm:flex-none">
-                  <span>View My Work</span>
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-                <a href="/CV-Shifin_Ahammed.pdf" download="CV-Shifin_Ahammed.pdf" className="group inline-flex items-center justify-center gap-2 glass glass-hover text-[var(--color-text-primary)] px-4 py-3 rounded-[var(--radius-1)] font-semibold transition-transform duration-200 hover:scale-105 text-xs sm:text-sm whitespace-nowrap flex-1 sm:flex-none">
-                  <span>Download CV</span>
-                  <DownloadCloud className="w-4 h-4 text-[var(--color-text-tertiary)] group-hover:text-[var(--color-primary)] transition-colors" />
-                </a>
-              </motion.div>
             </div>
 
             {/* Desktop Profile image */}
@@ -236,4 +248,5 @@ export default function Home() {
     </div>
   );
 }
+
 
