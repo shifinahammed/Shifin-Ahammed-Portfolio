@@ -41,7 +41,7 @@ const projects = [
     title: "Shifin Ahammed (Visual Identity)",
     category: "Logo Design",
     description: "Personal visual identity design for Shifin Ahammed.",
-    image: "/shifin-ahammed-coverpage.jpg",
+    image: "/thumbnail.jpg",
     tags: ["Personal Brand", "Logo Design", "Visual Identity"],
     year: "2024",
     link: "https://www.behance.net/gallery/221368697/Shifin-Ahammed"
