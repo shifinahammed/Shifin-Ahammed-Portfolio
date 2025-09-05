@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Send, CheckCircle, AlertTriangle, ChevronDown } from "lucide-react";
 
@@ -58,6 +58,16 @@ export default function Contact() {
     return "Send Message";
   };
 
+  // Auto-hide success/error messages after 4 seconds
+  useEffect(() => {
+    if (formState.status === "success" || formState.status === "error") {
+      const timer = setTimeout(() => {
+        setFormState({ status: "idle", message: "" });
+      }, 4000);
+      return () => clearTimeout(timer);
+    }
+  }, [formState]);
+
   return (
     <div className="px-6 sm:px-12 md:px-16 py-16 lg:py-20">
       <motion.div
@@ -91,7 +101,6 @@ export default function Contact() {
                   value={formData.name}
                   onChange={handleInputChange}
                   required
-                  // Easter Egg 2: Funny placeholder
                   placeholder="e.g. Tony Stark (but less dramatic)"
                   className="w-full bg-white/5 text-[var(--color-text-primary)] 
                              placeholder:text-[var(--color-text-secondary)] 
@@ -114,7 +123,6 @@ export default function Contact() {
                   value={formData.email}
                   onChange={handleInputChange}
                   required
-                  // Easter Egg 2: Funny placeholder
                   placeholder="we won’t spam… unless it’s memes"
                   className="w-full bg-white/5 text-[var(--color-text-primary)] 
                              placeholder:text-[var(--color-text-secondary)] 
@@ -172,7 +180,6 @@ export default function Contact() {
                 onChange={handleInputChange}
                 required
                 rows={5}
-                // Easter Egg 2: Funny placeholder
                 placeholder="your brand’s hopes, dreams, or a good coffee recipe ☕"
                 className="w-full bg-white/5 text-[var(--color-text-primary)] 
                            placeholder:text-[var(--color-text-secondary)] 
@@ -185,7 +192,7 @@ export default function Contact() {
             </div>
 
             {/* Status + Submit */}
-            <div className="flex items-center justify-between pt-1">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pt-1">
               <div
                 aria-live="polite"
                 className={`flex items-center gap-2 text-sm transition-opacity ${
@@ -202,7 +209,10 @@ export default function Contact() {
               <button
                 type="submit"
                 onMouseEnter={() => setHoverCount((c) => c + 1)}
-                className="inline-flex items-center gap-3 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-primary-dark)] text-white px-6 py-2 rounded-[var(--radius-1)] font-semibold hover:scale-105 transition disabled:opacity-50 disabled:cursor-wait"
+                className="inline-flex items-center gap-3 bg-gradient-to-r from-[var(--color-primary)] 
+                           to-[var(--color-primary-dark)] text-white px-6 py-2 
+                           rounded-[var(--radius-1)] font-semibold hover:scale-105 
+                           transition disabled:opacity-50 disabled:cursor-wait self-start sm:self-auto"
                 disabled={formState.status === "submitting"}
               >
                 {getButtonLabel()}

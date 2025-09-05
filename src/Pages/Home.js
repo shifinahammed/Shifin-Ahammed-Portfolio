@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, Sparkles, Palette, Code, Video, Layers, DownloadCloud } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -23,37 +23,167 @@ const skills = [
 const containerVariants = { hidden: { opacity: 0 }, visible: { opacity: 1, transition: { staggerChildren: 0.12, duration: 0.01 } } };
 const itemVariants = { hidden: { y: 20, opacity: 0 }, visible: { y: 0, opacity: 1, transition: { duration: 0.36, ease: [0.2, 0.9, 0.2, 1] } } };
 
+const roles = [
+  "Product Designer",
+  "UI/UX Designer",
+  "Brand Designer",
+  "Video Editor",
+  "Digital Marketer",
+];
+
 export default function Home() {
+  const [roleIndex, setRoleIndex] = useState(0);
+  const [text, setText] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [hovered, setHovered] = useState(false);
+
+  // Typing animation effect
+  useEffect(() => {
+    const current = roles[roleIndex];
+    const typingSpeed = 80;
+    const deletingSpeed = 35;
+    const holdAtFull = 900;
+    const holdAtEmpty = 250;
+
+    let timeout;
+
+    if (!isDeleting) {
+      if (text.length < current.length) {
+        timeout = setTimeout(() => setText(current.slice(0, text.length + 1)), typingSpeed);
+      } else {
+        timeout = setTimeout(() => setIsDeleting(true), holdAtFull);
+      }
+    } else {
+      if (text.length > 0) {
+        timeout = setTimeout(() => setText(current.slice(0, text.length - 1)), deletingSpeed);
+      } else {
+        timeout = setTimeout(() => {
+          setIsDeleting(false);
+          setRoleIndex((i) => (i + 1) % roles.length);
+        }, holdAtEmpty);
+      }
+    }
+
+    return () => clearTimeout(timeout);
+  }, [text, isDeleting, roleIndex]);
+
+  useEffect(() => {
+    if (text === "" && !isDeleting) {
+      const kick = setTimeout(() => setText(roles[roleIndex].slice(0, 1)), 10);
+      return () => clearTimeout(kick);
+    }
+  }, [text, isDeleting, roleIndex]);
+
+  const handleDoubleClick = () => {
+    window.open("https://www.youtube.com/watch?v=dQw4w9WgXcQ", "_blank");
+  };
+
   return (
     <div className="relative min-h-screen overflow-hidden">
       <motion.div variants={containerVariants} initial="hidden" animate="visible" className="relative z-10 px-6 sm:px-12 md:px-16 py-20 lg:py-24">
+        
         {/* Hero Section */}
         <motion.section variants={itemVariants} className="mb-24 lg:mb-32">
-          <div className="max-w-4xl">
-            <h1 className="font-bold leading-none mb-6 tracking-tighter text-[var(--color-text-primary)]" style={{ fontSize: 'var(--type-h1)' }}>
-              <motion.span variants={itemVariants} className="block">Creating</motion.span>
-              <motion.span variants={itemVariants} className="block gradient-text italic font-normal">Extraordinary</motion.span>
-              <motion.span variants={itemVariants} className="block">Experiences</motion.span>
-            </h1>
+          <div className="mx-auto grid grid-cols-1 lg:grid-cols-[1fr_auto] items-center gap-10 lg:gap-14 max-w-6xl">
+            
+            {/* Text side */}
+            <div className="max-w-3xl flex flex-col">
+              {/* Name */}
+              <h1
+                className="font-bold leading-tight tracking-tighter mb-2 text-[var(--color-text-primary)]"
+                style={{
+                  fontSize: "clamp(2.25rem, 6vw, 3.5rem)",
+                }}
+              >
+                Hey there,
+                <br />
+                <span
+                  className="italic"
+                  style={{ fontFamily: "var(--font-serif), 'Instrument Serif', serif" }}
+                >
+                  I’m Shifin Ahammed
+                </span>
+              </h1>
 
-            <motion.p variants={itemVariants} className="mb-8 max-w-2xl" style={{ fontSize: 'var(--type-body)' }}>
-              I'm Shifin Ahammed. By title, I'm a product designer, but I see the bigger picture. It’s not enough to design something beautiful; you have to connect it to an audience. I blend visual identity with digital marketing strategy to build brands that don't just look good—they perform.
-            </motion.p>
+              {/* Typing role */}
+              <div
+                className="mb-6 flex items-center text-[var(--color-text-secondary)]"
+                style={{ fontSize: "clamp(1.1rem, 3.5vw, 1.5rem)", minHeight: "2rem" }}
+                aria-live="polite"
+              >
+                <span className="sr-only">Current role: {roles[roleIndex]}</span>
+                <span className="italic">{text}</span>
+                <span
+                  className="ml-1 inline-block w-[1px] h-[1.2em] bg-current animate-pulse"
+                  aria-hidden="true"
+                />
+              </div>
 
-            <motion.div variants={itemVariants} className="flex items-stretch gap-4">
-              <Link to={createPageUrl("Projects")} className="group inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-primary-dark)] text-white px-4 py-3 rounded-[var(--radius-1)] font-semibold transition-transform duration-200 hover:scale-105 text-xs sm:text-sm whitespace-nowrap flex-1 sm:flex-none">
-                <span>View My Work</span>
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-              <a href="/CV-Shifin_Ahammed.pdf" download="CV-Shifin_Ahammed.pdf" className="group inline-flex items-center justify-center gap-2 glass glass-hover text-[var(--color-text-primary)] px-4 py-3 rounded-[var(--radius-1)] font-semibold transition-transform duration-200 hover:scale-105 text-xs sm:text-sm whitespace-nowrap flex-1 sm:flex-none">
-                <span>Download CV</span>
-                <DownloadCloud className="w-4 h-4 text-[var(--color-text-tertiary)] group-hover:text-[var(--color-primary)] transition-colors" />
-              </a>
+              {/* Mobile Profile image */}
+              <motion.div
+                variants={itemVariants}
+                className="justify-self-center lg:hidden mb-6 relative"
+                onMouseEnter={() => setHovered(true)}
+                onMouseLeave={() => setHovered(false)}
+                onDoubleClick={handleDoubleClick}
+              >
+                <div className="relative w-full h-[80vh] sm:h-[90vh] rounded-[22px] overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.35)] ring-1 ring-white/10 bg-white/5 mx-auto cursor-pointer">
+                  <img
+                    src="/pfp 101.jpg"
+                    alt="Portrait of Shifin Ahammed"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                {hovered && (
+                  <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 bg-black text-white text-sm px-3 py-1 rounded-lg shadow-lg animate-pulse whitespace-nowrap">
+                    I dare you to double click me 👀
+                  </div>
+                )}
+              </motion.div>
+
+              {/* About text */}
+              <motion.p variants={itemVariants} className="mb-8 max-w-2xl" style={{ fontSize: 'var(--type-body)' }}>
+                By title, I'm a product designer, but I see the bigger picture. It’s not enough to design something beautiful; you have to connect it to an audience. I blend visual identity with digital marketing strategy to build brands that don't just look good—they perform.
+              </motion.p>
+
+              {/* CTA */}
+              <motion.div variants={itemVariants} className="flex items-stretch gap-4">
+                <Link to={createPageUrl("Projects")} className="group inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-primary-dark)] text-white px-4 py-3 rounded-[var(--radius-1)] font-semibold transition-transform duration-200 hover:scale-105 text-xs sm:text-sm whitespace-nowrap flex-1 sm:flex-none">
+                  <span>View My Work</span>
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+                <a href="/CV-Shifin_Ahammed.pdf" download="CV-Shifin_Ahammed.pdf" className="group inline-flex items-center justify-center gap-2 glass glass-hover text-[var(--color-text-primary)] px-4 py-3 rounded-[var(--radius-1)] font-semibold transition-transform duration-200 hover:scale-105 text-xs sm:text-sm whitespace-nowrap flex-1 sm:flex-none">
+                  <span>Download CV</span>
+                  <DownloadCloud className="w-4 h-4 text-[var(--color-text-tertiary)] group-hover:text-[var(--color-primary)] transition-colors" />
+                </a>
+              </motion.div>
+            </div>
+
+            {/* Desktop Profile image */}
+            <motion.div
+              variants={itemVariants}
+              className="justify-self-center lg:justify-self-end hidden lg:block relative"
+              onMouseEnter={() => setHovered(true)}
+              onMouseLeave={() => setHovered(false)}
+              onDoubleClick={handleDoubleClick}
+            >
+              <div className="relative w-44 h-44 sm:w-56 sm:h-56 md:w-64 md:h-64 rounded-[22px] overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.35)] ring-1 ring-white/10 bg-white/5 cursor-pointer">
+                <img
+                  src="/pfp 101.jpg"
+                  alt="Portrait of Shifin Ahammed"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              {hovered && (
+                <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 bg-black text-white text-sm px-3 py-1 rounded-lg shadow-lg animate-pulse whitespace-nowrap">
+                  I dare you to double click me 👀
+                </div>
+              )}
             </motion.div>
           </div>
         </motion.section>
 
-        {/* Skills Horizontal Scroll */}
+        {/* What I Do Section */}
         <motion.section variants={itemVariants} className="mb-24 lg:mb-32">
           <div className="mb-12">
             <motion.h2 variants={itemVariants} className="font-bold mb-4 tracking-tighter" style={{ fontSize: 'var(--type-h2)' }}>What I Do</motion.h2>
@@ -68,14 +198,11 @@ export default function Home() {
                 <motion.div key={skill.title} variants={itemVariants} className="glass w-80 rounded-[var(--radius-2)] p-6 cursor-pointer relative overflow-hidden flex-shrink-0">
                   <motion.div whileHover={{ scale: 1.03, y: -5 }} transition={{ duration: 0.2, ease: "easeOut" }} className="h-full w-full rounded-[var(--radius-2)] overflow-hidden">
                     <div className={`absolute inset-0 bg-gradient-to-br ${skill.gradient} opacity-0 group-hover:opacity-[0.03] transition-opacity duration-200`} />
-
                     <div className="relative w-16 h-16 rounded-[var(--radius-1)] flex items-center justify-center mb-6 shadow-lg bg-white/5 transition-transform">
                       <skill.icon className="w-8 h-8 text-[var(--color-primary)]" />
                     </div>
-
                     <h3 className="font-semibold mb-3 tracking-tight text-[var(--color-text-primary)]">{skill.title}</h3>
                     <p className="mb-6 text-base">{skill.description}</p>
-
                     <div className="flex items-center justify-between">
                       <span className="text-sm text-[var(--color-text-tertiary)] font-medium tracking-wide uppercase">{skill.projects}</span>
                       <ArrowRight className="w-5 h-5 text-[var(--color-text-tertiary)] group-hover:text-[var(--color-primary)] group-hover:translate-x-1 transition-all"/>
@@ -104,6 +231,7 @@ export default function Home() {
             <p className="text-[var(--color-text-tertiary)] text-base">— A principle that guides my work, inspired by Joe Sparano</p>
           </div>
         </motion.section>
+
       </motion.div>
     </div>
   );
