@@ -95,7 +95,7 @@ export default function Home() {
             {/* Left column */}
             <div className="max-w-3xl flex flex-col">
               <h1
-                className="font-bold tracking-tighter mb-3 text-[var(--color-text-primary)] leading-snug sm:leading-tight"
+                className="font-bold tracking-tight mb-0 text-[var(--color-text-primary)] leading-snug sm:leading-tight"
                 style={{ fontSize: "clamp(1.9rem, 5vw, 3.5rem)" }}
               >
                 Hey there
@@ -110,7 +110,7 @@ export default function Home() {
 
               {/* Typing role */}
               <div
-                className="mb-5 flex items-center text-[var(--color-text-secondary)]"
+                className="mb-6 flex items-center text-[var(--color-text-secondary)]"
                 style={{ fontSize: "clamp(1.1rem, 3.5vw, 1.5rem)", minHeight: "2rem" }}
                 aria-live="polite"
               >
@@ -122,7 +122,7 @@ export default function Home() {
               {/* MOBILE profile image */}
               <motion.div
                 variants={itemVariants}
-                className="lg:hidden mb-6 relative"
+                className="lg:hidden mb-12 relative"
                 onMouseEnter={() => setHovered(true)}
                 onMouseLeave={() => setHovered(false)}
                 onDoubleClick={handleDoubleClick}
@@ -150,11 +150,11 @@ export default function Home() {
               <motion.div variants={itemVariants} className="flex items-stretch gap-4 mb-4">
                 <Link to={createPageUrl("Projects")} className="group inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-primary-dark)] text-white px-4 py-3 rounded-[var(--radius-1)] font-semibold transition-transform duration-200 hover:scale-105 text-xs sm:text-sm whitespace-nowrap flex-1 sm:flex-none">
                   <span>View My Work</span>
-                  <ArrowRight className="w-4 h-4" />
+                  <ArrowRight className="w-4 h-6" />
                 </Link>
                 <a href="/CV-Shifin_Ahammed.pdf" download="CV-Shifin_Ahammed.pdf" className="group inline-flex items-center justify-center gap-2 glass glass-hover text-[var(--color-text-primary)] px-4 py-3 rounded-[var(--radius-1)] font-semibold transition-transform duration-200 hover:scale-105 text-xs sm:text-sm whitespace-nowrap flex-1 sm:flex-none">
                   <span>Download CV</span>
-                  <DownloadCloud className="w-4 h-4 text-[var(--color-text-tertiary)] group-hover:text-[var(--color-primary)] transition-colors" />
+                  <DownloadCloud className="w-4 h-6 text-[var(--color-text-tertiary)] group-hover:text-[var(--color-primary)] transition-colors" />
                 </a>
               </motion.div>
 
