@@ -93,28 +93,28 @@ export default function Home() {
         <motion.section variants={itemVariants} className="mb-24 lg:mb-32">
           <div className="mx-auto grid grid-cols-1 lg:grid-cols-[1fr_auto] items-start gap-10 lg:gap-14 max-w-6xl">
             
-            {/* Left column (text, mobile pfp inside here in desired order) */}
+            {/* Left column */}
             <div className="max-w-3xl flex flex-col">
               {/* Name */}
               <h1
-                className="font-bold leading-tight tracking-tighter mb-2 text-[var(--color-text-primary)]"
+                className="font-bold tracking-tighter mb-3 text-[var(--color-text-primary)] leading-snug sm:leading-tight"
                 style={{
-                  fontSize: "clamp(2.25rem, 6vw, 3.5rem)",
+                  fontSize: "clamp(1.9rem, 5vw, 3.5rem)",
                 }}
               >
-                Hey there,
+                Hey there
                 <br />
                 <span
-                  className="italic"
+                  className="italic text-[var(--color-primary)]"
                   style={{ fontFamily: "var(--font-serif), 'Instrument Serif', serif" }}
                 >
-                  I’m Shifin Ahammed
+                  I'm Shifin Ahammed
                 </span>
               </h1>
 
               {/* Typing role */}
               <div
-                className="mb-4 flex items-center text-[var(--color-text-secondary)]"
+                className="mb-5 flex items-center text-[var(--color-text-secondary)]"
                 style={{ fontSize: "clamp(1.1rem, 3.5vw, 1.5rem)", minHeight: "2rem" }}
                 aria-live="polite"
               >
@@ -126,8 +126,7 @@ export default function Home() {
                 />
               </div>
 
-              {/* MOBILE profile image — placed here so the order is correct on small screens.
-                  Matches the About section style (aspect square + rounded glass). */}
+              {/* MOBILE profile image */}
               <motion.div
                 variants={itemVariants}
                 className="lg:hidden mb-6 relative"
@@ -151,11 +150,15 @@ export default function Home() {
               </motion.div>
 
               {/* About / description */}
-              <motion.p variants={itemVariants} className="mb-6 max-w-2xl" style={{ fontSize: 'var(--type-body)' }}>
+              <motion.p
+                variants={itemVariants}
+                className="mb-6 max-w-2xl text-[var(--color-text-secondary)]"
+                style={{ fontSize: "var(--type-body)", lineHeight: "1.7" }}
+              >
                 By title, I'm a product designer, but I see the bigger picture. It’s not enough to design something beautiful; you have to connect it to an audience. I blend visual identity with digital marketing strategy to build brands that don't just look good—they perform.
               </motion.p>
 
-              {/* CTA (after description on mobile; same place on desktop left column) */}
+              {/* CTA */}
               <motion.div variants={itemVariants} className="flex items-stretch gap-4 mb-4">
                 <Link to={createPageUrl("Projects")} className="group inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-primary-dark)] text-white px-4 py-3 rounded-[var(--radius-1)] font-semibold transition-transform duration-200 hover:scale-105 text-xs sm:text-sm whitespace-nowrap flex-1 sm:flex-none">
                   <span>View My Work</span>
@@ -167,7 +170,7 @@ export default function Home() {
                 </a>
               </motion.div>
 
-              {/* Mobile-only scroll arrow (visible below CTA) */}
+              {/* Mobile-only scroll arrow */}
               <div className="flex justify-center lg:hidden">
                 <button
                   onClick={scrollToWhatID}
@@ -185,7 +188,7 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Desktop profile image (unchanged visual & placement) */}
+            {/* Desktop profile image */}
             <motion.div
               variants={itemVariants}
               className="justify-self-center lg:justify-self-end hidden lg:block relative"
@@ -209,7 +212,7 @@ export default function Home() {
           </div>
         </motion.section>
 
-        {/* What I Do Section — target id for the scroll arrow */}
+        {/* What I Do Section */}
         <motion.section id="what-i-do" variants={itemVariants} className="mb-24 lg:mb-32">
           <div className="mb-12">
             <motion.h2 variants={itemVariants} className="font-bold mb-4 tracking-tighter" style={{ fontSize: 'var(--type-h2)' }}>What I Do</motion.h2>
@@ -262,5 +265,6 @@ export default function Home() {
     </div>
   );
 }
+
 
 
