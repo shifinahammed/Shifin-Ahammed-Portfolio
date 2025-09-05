@@ -67,7 +67,7 @@ export default function Home() {
     return () => clearTimeout(timeout);
   }, [text, isDeleting, roleIndex]);
 
-  // Kick-start typing when component mounts or role changes
+  // Kick-start typing
   useEffect(() => {
     if (text === "" && !isDeleting) {
       const kick = setTimeout(() => setText(roles[roleIndex].slice(0, 1)), 10);
@@ -76,7 +76,6 @@ export default function Home() {
   }, [text, isDeleting, roleIndex]);
 
   const handleDoubleClick = () => {
-    // Rickroll Easter egg
     window.open("https://www.youtube.com/watch?v=dQw4w9WgXcQ", "_blank");
   };
 
@@ -95,12 +94,9 @@ export default function Home() {
             
             {/* Left column */}
             <div className="max-w-3xl flex flex-col">
-              {/* Name */}
               <h1
                 className="font-bold tracking-tighter mb-3 text-[var(--color-text-primary)] leading-snug sm:leading-tight"
-                style={{
-                  fontSize: "clamp(1.9rem, 5vw, 3.5rem)",
-                }}
+                style={{ fontSize: "clamp(1.9rem, 5vw, 3.5rem)" }}
               >
                 Hey there
                 <br />
@@ -120,10 +116,7 @@ export default function Home() {
               >
                 <span className="sr-only">Current role: {roles[roleIndex]}</span>
                 <span className="italic">{text}</span>
-                <span
-                  className="ml-1 inline-block w-[1px] h-[1.2em] bg-current animate-pulse"
-                  aria-hidden="true"
-                />
+                <span className="ml-1 inline-block w-[1px] h-[1.2em] bg-current animate-pulse" aria-hidden="true" />
               </div>
 
               {/* MOBILE profile image */}
@@ -135,12 +128,7 @@ export default function Home() {
                 onDoubleClick={handleDoubleClick}
               >
                 <div className="aspect-square glass rounded-[var(--radius-2)] overflow-hidden mx-auto">
-                  <img
-                    src="/pfp 101.jpg"
-                    alt="Shifin Ahammed"
-                    className="w-full h-full object-cover"
-                    loading="eager"
-                  />
+                  <img src="/pfp 101.jpg" alt="Shifin Ahammed" className="w-full h-full object-cover" loading="eager" />
                 </div>
                 {hovered && (
                   <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 bg-black text-white text-sm px-3 py-1 rounded-lg shadow-lg animate-pulse whitespace-nowrap">
@@ -149,10 +137,10 @@ export default function Home() {
                 )}
               </motion.div>
 
-              {/* About / description */}
+              {/* Description – hidden on mobile */}
               <motion.p
                 variants={itemVariants}
-                className="mb-6 max-w-2xl text-[var(--color-text-secondary)]"
+                className="mb-6 max-w-2xl text-[var(--color-text-secondary)] hidden lg:block"
                 style={{ fontSize: "var(--type-body)", lineHeight: "1.7" }}
               >
                 By title, I'm a product designer, but I see the bigger picture. It’s not enough to design something beautiful; you have to connect it to an audience. I blend visual identity with digital marketing strategy to build brands that don't just look good—they perform.
@@ -172,16 +160,8 @@ export default function Home() {
 
               {/* Mobile-only scroll arrow */}
               <div className="flex justify-center lg:hidden">
-                <button
-                  onClick={scrollToWhatID}
-                  className="text-[var(--color-text-tertiary)] p-2 rounded-full hover:bg-white/5 transition"
-                  aria-label="Scroll to What I Do"
-                >
-                  <motion.div
-                    initial={{ y: 0 }}
-                    animate={{ y: [0, 6, 0] }}
-                    transition={{ repeat: Infinity, duration: 1.4, ease: "easeInOut" }}
-                  >
+                <button onClick={scrollToWhatID} className="text-[var(--color-text-tertiary)] p-2 rounded-full hover:bg-white/5 transition" aria-label="Scroll to What I Do">
+                  <motion.div initial={{ y: 0 }} animate={{ y: [0, 6, 0] }} transition={{ repeat: Infinity, duration: 1.4, ease: "easeInOut" }}>
                     <ArrowRight className="w-6 h-6 rotate-90" />
                   </motion.div>
                 </button>
@@ -197,11 +177,7 @@ export default function Home() {
               onDoubleClick={handleDoubleClick}
             >
               <div className="relative w-44 h-44 sm:w-56 sm:h-56 md:w-64 md:h-64 rounded-[22px] overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.35)] ring-1 ring-white/10 bg-white/5 cursor-pointer">
-                <img
-                  src="/pfp 101.jpg"
-                  alt="Portrait of Shifin Ahammed"
-                  className="w-full h-full object-cover"
-                />
+                <img src="/pfp 101.jpg" alt="Portrait of Shifin Ahammed" className="w-full h-full object-cover" />
               </div>
               {hovered && (
                 <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 bg-black text-white text-sm px-3 py-1 rounded-lg shadow-lg animate-pulse whitespace-nowrap">
@@ -265,6 +241,7 @@ export default function Home() {
     </div>
   );
 }
+
 
 
 
