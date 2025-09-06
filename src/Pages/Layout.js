@@ -23,7 +23,7 @@ const navigationItems = [
 ];
 
 const socialLinks = [
-  { name: "Instagram", icon: Instagram, url: "https://instagram.com/_shifinahammed", color: "hover:text-pink-400" },
+  { name: "Instagram", icon: Instagram, url: "https://instagram.com/shifinahammed_", color: "hover:text-pink-400" },
   { name: "LinkedIn", icon: Linkedin, url: "https://linkedin.com/in/shifinahammed", color: "hover:text-blue-400" },
   { name: "X", icon: Twitter, url: "https://x.com/shifinahmmd", color: "hover:text-gray-300" },
   { name: "Behance", icon: Briefcase, url: "https://behance.net/shifinahammed", color: "hover:text-blue-500" }

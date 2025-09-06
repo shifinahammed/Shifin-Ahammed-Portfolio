@@ -122,7 +122,7 @@ export default function Home() {
               {/* MOBILE profile image */}
               <motion.div
                 variants={itemVariants}
-                className="lg:hidden mb-12 relative"
+                className="lg:hidden mb-6 relative"
                 onMouseEnter={() => setHovered(true)}
                 onMouseLeave={() => setHovered(false)}
                 onDoubleClick={handleDoubleClick}
@@ -131,7 +131,7 @@ export default function Home() {
                   <img src="/pfp 101.jpg" alt="Shifin Ahammed" className="w-full h-full object-cover" loading="eager" />
                 </div>
                 {hovered && (
-                  <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 bg-black text-white text-sm px-3 py-1 rounded-lg shadow-lg animate-pulse whitespace-nowrap">
+                  <div className="absolute -bottom-0 left-1/2 -translate-x-1/2 bg-black text-white text-sm px-3 py-1 rounded-lg shadow-lg animate-pulse whitespace-nowrap">
                     I dare you to double click me 👀
                   </div>
                 )}

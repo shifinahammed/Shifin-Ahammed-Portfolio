@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, Star, Quote, ArrowRight } from "lucide-react";
 
-// ✨ Centralized testimonials data (easy to add/change)
+// ✨ Centralized testimonials data
 const testimonials = [
   {
     id: 1,
@@ -10,9 +10,9 @@ const testimonials = [
     role: "Founder",
     company: "Xentrix Capital",
     content:
-      "Shifin transformed our brand identity into something powerful and memorable. His vision helped us stand out in a crowded industry.",
+      "I had an exceptional experience working with Shifin Ahammed on my brand's logo design. He provided personalized attention throughout the process, ensuring every detail matched my vision. His creativity, patience, and commitment to perfection were outstanding, and he worked until I was completely satisfied. I highly recommend Shifin to anyone seeking quality design work with excellent collaboration and client focus.",
     rating: 5,
-    image: "/images/afzal.jpg", // place in public/images
+    image: "/afzal.jpg",
   },
   {
     id: 2,
@@ -22,11 +22,10 @@ const testimonials = [
     content:
       "A dedicated designer with an eye for detail. Shifin’s approach to design is professional yet empathetic, making collaboration smooth.",
     rating: 5,
-    image: "/images/aflah.jpg", // place in public/images
+    image: "/aflah.jpg",
   },
 ];
 
-// ⚡ Carousel Component
 export default function Testimonials() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(0);
@@ -48,9 +47,23 @@ export default function Testimonials() {
 
   // Animation variants
   const variants = {
-    enter: (direction) => ({ x: direction > 0 ? 50 : -50, opacity: 0 }),
-    center: { x: 0, opacity: 1 },
-    exit: (direction) => ({ x: direction < 0 ? 50 : -50, opacity: 0 }),
+    enter: (direction) => ({
+      x: direction > 0 ? 40 : -40,
+      opacity: 0,
+      position: "absolute",
+    }),
+    center: {
+      x: 0,
+      opacity: 1,
+      position: "relative",
+      transition: { duration: 0.45, ease: "easeOut" },
+    },
+    exit: (direction) => ({
+      x: direction < 0 ? 40 : -40,
+      opacity: 0,
+      position: "absolute",
+      transition: { duration: 0.35, ease: "easeIn" },
+    }),
   };
 
   return (
@@ -71,8 +84,8 @@ export default function Testimonials() {
         </div>
 
         {/* Main Testimonial */}
-        <div className="max-w-4xl mx-auto mb-12 lg:mb-16">
-          <AnimatePresence initial={false} custom={direction}>
+        <div className="max-w-4xl mx-auto mb-12 lg:mb-16 relative min-h-[350px] flex items-center justify-center">
+          <AnimatePresence initial={false} custom={direction} mode="popLayout">
             <motion.div
               key={currentIndex}
               custom={direction}
@@ -80,11 +93,7 @@ export default function Testimonials() {
               initial="enter"
               animate="center"
               exit="exit"
-              transition={{
-                x: { type: "spring", stiffness: 300, damping: 30 },
-                opacity: { duration: 0.2 },
-              }}
-              className="glass rounded-3xl p-8 lg:p-12 text-center relative overflow-hidden"
+              className="glass rounded-3xl p-8 lg:p-12 text-center overflow-hidden w-full"
             >
               {/* Background Quotes */}
               <Quote className="absolute top-8 left-8 w-16 h-16 text-white/5" />
@@ -119,42 +128,36 @@ export default function Testimonials() {
               </div>
             </motion.div>
           </AnimatePresence>
-
-          {/* Navigation */}
-          <div className="flex items-center justify-center gap-4 mt-6">
-            <button
-              onClick={prevTestimonial}
-              className="glass glass-hover rounded-full p-3 hover:bg-white/10"
-            >
-              <ChevronLeft className="w-6 h-6" />
-            </button>
-
-            {/* Dots */}
-            <div className="flex gap-3">
-              {testimonials.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => goToTestimonial(index)}
-                  className={`w-2.5 h-2.5 rounded-full transition-all ${
-                    index === currentIndex
-                      ? "bg-[var(--accent-orange)] scale-125"
-                      : "bg-white/30 hover:bg-white/50"
-                  }`}
-                />
-              ))}
-            </div>
-
-            <button
-              onClick={nextTestimonial}
-              className="glass glass-hover rounded-full p-3 hover:bg-white/10"
-            >
-              <ChevronRight className="w-6 h-6" />
-            </button>
-          </div>
         </div>
 
-        {/* Mini Cards (horizontal scroll) */}
-        <div className="overflow-x-auto scrollbar-hide pb-4">
+        {/* Navigation */}
+        <div className="flex items-center justify-center gap-4 mt-6">
+          <button onClick={prevTestimonial} className="glass glass-hover rounded-full p-3 hover:bg-white/10">
+            <ChevronLeft className="w-6 h-6" />
+          </button>
+
+          {/* Dots */}
+          <div className="flex gap-3">
+            {testimonials.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => goToTestimonial(index)}
+                className={`w-2.5 h-2.5 rounded-full transition-all ${
+                  index === currentIndex
+                    ? "bg-[var(--accent-orange)] scale-125"
+                    : "bg-white/30 hover:bg-white/50"
+                }`}
+              />
+            ))}
+          </div>
+
+          <button onClick={nextTestimonial} className="glass glass-hover rounded-full p-3 hover:bg-white/10">
+            <ChevronRight className="w-6 h-6" />
+          </button>
+        </div>
+
+        {/* Mini Cards */}
+        <div className="overflow-x-auto scrollbar-hide pb-4 mt-12">
           <div className="flex gap-4 w-max lg:grid lg:grid-cols-3 lg:w-full">
             {testimonials.map((t, index) => (
               <motion.div
@@ -188,3 +191,4 @@ export default function Testimonials() {
     </div>
   );
 }
+
