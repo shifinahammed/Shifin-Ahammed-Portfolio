@@ -55,10 +55,13 @@ export default function Layout({ children }) {
 
   return (
     <>
-      <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:z-[999] focus:top-4 focus:left-4 focus:bg-white focus:text-black focus:px-4 py-2 rounded-lg">
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:z-[999] focus:top-4 focus:left-4 focus:bg-white focus:text-black focus:px-4 py-2 rounded-lg"
+      >
         Skip to main content
       </a>
-      {/* Styles are now in index.css, so the <style> block is removed */}
+
       <div className="min-h-screen bg-[var(--color-bg)] text-[var(--color-text-primary)] font-sans overflow-x-hidden">
         
         {/* Mobile Menu Button */}
@@ -85,6 +88,7 @@ export default function Layout({ children }) {
         {/* Sidebar Navigation */}
         <aside className={`fixed left-0 top-0 h-full w-72 lg:w-[300px] p-4 z-50 transition-transform duration-300 ease-in-out ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0`}>
           <div className="glass rounded-[var(--radius-3)] p-6 h-full flex flex-col overflow-hidden">
+            
             {/* Profile Section */}
             <div className="text-center mb-10 flex-shrink-0">
               <div className="relative inline-block mb-4">
@@ -127,7 +131,7 @@ export default function Layout({ children }) {
               })}
             </nav>
 
-            {/* Social Media & Footer */}
+            {/* Social Media */}
             <div className="pt-6 mt-auto border-t border-white/[0.05] flex-shrink-0">
               <div className="flex justify-center gap-3">
                 {socialLinks.map((social) => (
@@ -150,10 +154,18 @@ export default function Layout({ children }) {
         {/* Main Content */}
         <main 
           id="main-content"
-          className="lg:ml-[300px] min-h-screen transition-transform"
+          className="lg:ml-[300px] min-h-screen transition-transform flex flex-col"
           onClick={() => isMenuOpen && setIsMenuOpen(false)}
         >
-          {children}
+          {/* Page content */}
+          <div className="flex-1">
+            {children}
+          </div>
+
+          {/* Footer */}
+          <footer className="py-6 text-center text-sm text-[var(--color-text-tertiary)] border-t border-white/[0.05]">
+            © 2025 Shifin Ahammed. All rights reserved.
+          </footer>
         </main>
 
         {/* Mobile Menu Overlay */}
