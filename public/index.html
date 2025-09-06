@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <!-- Google Site Verification -->
-    <meta name="google-site-verification" content="aFnwlH15eiW3Yt7_s34QPp_XqLHNsktUobnNCdX0xuw" />
-
     <meta charset="utf-8" />
     <link rel="icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -40,12 +37,31 @@
     <link rel="apple-touch-icon" href="/web-app-manifest-192x192.png" />
     <link rel="apple-touch-icon" sizes="512x512" href="/web-app-manifest-512x512.png" />
     <link rel="manifest" href="/manifest.json" />
+
+    <!-- Google Analytics (GA4) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NLQ0N8ZDF1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-NLQ0N8ZDF1');
+    </script>
+
+    <!-- Microsoft Clarity -->
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "t6elx09vzq");
+    </script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
   </body>
 </html>
+
 
 
 
